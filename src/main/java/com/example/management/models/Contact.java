@@ -18,7 +18,7 @@ class Contact {
     @SequenceGenerator(name = "contact_seq_gen", sequenceName = "contact_id_seq")
     public Long contactId;
 
-    @JsonBackReference
+    @JsonBackReference("contactBackReference")
     public Client getClient() {
         return client;
     }

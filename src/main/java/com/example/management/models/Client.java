@@ -35,7 +35,7 @@ public @Data class Client {
     public String telephone;
     public String dob;
 
-    @JsonManagedReference
+    @JsonManagedReference("contactBackReference")
     public List<Contact> getContacts() {
         return contacts;
     }
@@ -43,5 +43,20 @@ public @Data class Client {
     @OneToMany( cascade = CascadeType.ALL, mappedBy = "client" , fetch = FetchType.EAGER)
     public List<Contact> contacts = new ArrayList<>();
 
+    @JsonManagedReference("visitBackReference")
+    public List<Visit> getVisits() {
+        return visits;
+    }
+
+    @OneToMany(mappedBy = "client")
+    public List<Visit> visits = new ArrayList<>();
+
+    @JsonManagedReference("clientDocumentBackReference")
+    public List<Document> getDocuments() {
+        return documents;
+    }
+
+    @OneToMany(mappedBy = "clientAssociation")
+    public List<Document> documents = new ArrayList<>();
 
 }

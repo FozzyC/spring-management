@@ -1,9 +1,12 @@
 package com.example.management.models;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 
 @Entity
@@ -30,4 +33,20 @@ class Staff {
     public String telephone;
     public String dob;
     public byte photo;
+
+    @JsonManagedReference
+    public List<Visit> getVisits() {
+        return visits;
+    }
+
+    @OneToMany( mappedBy = "staffMember" )
+    public List<Visit> visits = new ArrayList<>();
+
+    @JsonManagedReference("staffDocumentBackReference")
+    public List<Document> getDocuments() {
+        return documents;
+    }
+
+    @OneToMany(mappedBy = "staffAssociation")
+    public List<Document> documents = new ArrayList<>();
 }
